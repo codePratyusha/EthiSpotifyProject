@@ -21,6 +21,9 @@ def genreFind(artist):
 
 results = sp.current_user_top_tracks()
 
+df1 = pd.DataFrame(results['items'])
+df1.to_csv('info.csv')
+
 df = pd.DataFrame(columns = ["Artist", "Genres"]) 
 
 topArtistGenres = []
