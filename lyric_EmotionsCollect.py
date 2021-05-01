@@ -220,9 +220,17 @@ artistName, songTitle, trackID = text_to_list(artistAndSong_file)
 artistAndSong_file.close()
 
 #create row to be column names
-row_list = []
+#row_list = []
 col_names = ['Artist', 'Track', 'Track ID','Positive', 'Negative', 'Anger', 'Anticipation', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise', 'Trust']
-row_list.append(col_names)
+#row_list.append(col_names)
+
+#create csv file of col rows
+with open('emotions_from_lyrics.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(col_names)
+file.close()
+
+#fn to append list as rows
 
 #extract lists of emotions from all songs as rows
 #realized that some of the API calls to lyricsgenius fail
@@ -241,14 +249,14 @@ for i in range(0, len(artistName)):
     row = lyrics_to_emotions(artistName[i], songTitle[i], songLyrics, trackID[i])
     print(row)
     #append row to row_list
-    row_list.append(row)
+    #row_list.append(row)
+    #write row to csv file 
+    with open('emotions_from_lyrics.csv', 'a+', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(row)
+    file.close()   
 #
 
-#create csv file of all rows
-with open('emotions_from_lyrics.csv', 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerows(row_list)
-file.close()
 
 
 
